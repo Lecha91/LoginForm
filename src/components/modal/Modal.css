@@ -1,0 +1,47 @@
+.modal-container {
+  /* background-color: rgba(200, 202, 202, 0.49); */
+  height: 100%;
+  width: 100%;
+  animation: op 0.1s ease-in;
+}
+.modal {
+  position: absolute;
+  background-color: rgba(200, 202, 202, 0.89);
+  z-index: 2;
+  top: 20%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  height: 10%;
+  width: 15%;
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+@keyframes op {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.filter-layer {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.modal h2 {
+  color: black;
+  padding-right: 0.5rem;
+}
+
+.modal img {
+  padding-left: 0.5rem;
+  height: 2rem;
+  width: 2rem;
+}
