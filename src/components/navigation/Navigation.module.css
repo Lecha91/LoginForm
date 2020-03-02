@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.nav-right {
+.navRight {
   padding: 0 2rem;
   display: flex;
   justify-content: space-around;
@@ -21,20 +21,20 @@
   height: 35%;
 }
 
-.nav-right a {
+.navRight a {
   font-size: 1rem;
   color: white;
   text-decoration: none;
   transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.nav-right a:hover {
+.navRight a:hover {
   transform: scale(1.15);
   color: rgba(0, 212, 255, 1);
   transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.nav-right a:focus {
+.navRight a:focus {
   outline: none;
 }
 
@@ -45,7 +45,7 @@
   transform: translatey(8%);
 }
 
-.nav-left {
+.navLeft {
   padding: 0 2rem;
   text-align: center;
   width: 10%;
@@ -53,7 +53,7 @@
   color: white;
 }
 
-.nav-left h1 {
+.navLeft h1 {
   margin: 0;
 }
 

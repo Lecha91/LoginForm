@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./Register.css";
-import Modal from "../../../components/modal/Modal";
+import styles from "./Register.module.css";
+import Modal from "../../modal/Modal";
 import { useUser } from "../../../providers/UsersProvider";
 import { navigate } from "@reach/router";
 import success from "../../../assets/success.png";
@@ -12,24 +12,22 @@ const modalStates = {
   none: "none"
 };
 
+const emailPattern = /^\S+@\S+\.\S+$/;
+
 const Register = () => {
-  const provider = useUser();
+  const { users, setUsers } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [modalState, setModalState] = useState(modalStates.none);
-  const pattern = /^\S+@\S+\.\S+$/;
 
-  const validateForm = () => {
-    return (
-      email.length > 0 &&
-      password.length > 0 &&
-      firstName.length > 0 &&
-      lastName.length > 0 &&
-      pattern.test(email)
-    );
-  };
+  const isFormValid =
+    email.length > 0 &&
+    password.length > 0 &&
+    firstName.length > 0 &&
+    lastName.length > 0 &&
+    emailPattern.test(email);
 
   const handleRegSubmit = () => {
     const newUser = {
@@ -38,12 +36,12 @@ const Register = () => {
       firstName,
       lastName
     };
-    const user = provider.users.find(u => u.email === email);
+    const user = users.find(u => u.email === email);
     if (user) {
       setModalState(modalStates.warning);
       setTimeout(() => setModalState(modalStates.none), 1500);
     } else {
-      provider.setUsers([...provider.users, newUser]);
+      setUsers([...users, newUser]);
       setModalState(modalStates.success);
       setTimeout(() => navigate("/"), 1500);
     }
@@ -56,45 +54,45 @@ const Register = () => {
       {modalState === modalStates.warning && (
         <Modal icon={warning} message={"Choose different email!"} />
       )}
-      <form className="reg-form" onSubmit={e => e.preventDefault()}>
-        <label className="reg-label">First Name</label>
+      <form className={styles.regForm} onSubmit={e => e.preventDefault()}>
+        <label className={styles.regLabel}>First Name</label>
         <input
-          className="reg-input"
+          className={styles.regInput}
           autoFocus
           id="firstName"
           type="text"
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
         />
-        <label className="reg-label">Last Name</label>
+        <label className={styles.regLabel}>Last Name</label>
         <input
-          className="reg-input"
+          className={styles.regInput}
           id="lastName"
           type="text"
           value={lastName}
           onChange={e => setLastName(e.target.value)}
         />
-        <label className="reg-label">Email</label>
+        <label className={styles.regLabel}>Email</label>
         <input
-          className="reg-input"
+          className={styles.regInput}
           id="email"
           type="text"
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
-        <label className="reg-label">Password</label>
+        <label className={styles.regLabel}>Password</label>
         <input
-          className="reg-input"
+          className={styles.regInput}
           type="password"
           id="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
         <button
-          className="register"
+          className={styles.register}
           type="submit"
-          disabled={!validateForm()}
-          onClick={() => handleRegSubmit()}
+          disabled={!isFormValid}
+          onClick={handleRegSubmit}
         >
           Register
         </button>

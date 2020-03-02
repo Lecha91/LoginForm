@@ -1,4 +1,4 @@
-.user-screen {
+.userScreen {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
     opacity: 1;
   }
 }
-.user-screen h1 {
+.userScreen h1 {
   font-size: 2rem;
 }
 

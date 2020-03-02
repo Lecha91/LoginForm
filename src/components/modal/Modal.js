@@ -1,11 +1,11 @@
 import React from "react";
-import "./Modal.css";
+import styles from "./Modal.module.css";
 
 const Modal = ({ message, icon }) => {
   return (
-    <div className="modal-container">
-      <div className="filter-layer"></div>
-      <div className="modal">
+    <div className={styles.modalContainer}>
+      <div className={styles.filterLayer}></div>
+      <div className={styles.modal}>
         <img src={icon} alt="icon" />
         <h2>{message}</h2>
       </div>

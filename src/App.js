@@ -1,11 +1,11 @@
 import React from "react";
 import { Router } from "@reach/router";
 import "./App.css";
-import Navigation from "./components/navigation";
-import Login from "./components/screens/loginScreen";
-import Footer from "./components/footer";
-import Register from "./components/screens/registerScreen";
-import UserScreen from "./components/screens/userScreen";
+import Navigation from "./components/navigation/Navigation";
+import Login from "./components/screens/loginScreen/Login";
+import Footer from "./components/footer/Footer";
+import Register from "./components/screens/registerScreen/Register";
+import UserScreen from "./components/screens/userScreen/UserScreen";
 
 function App() {
   return (

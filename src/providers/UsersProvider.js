@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
 
 const UserContext = createContext(null);
 
@@ -7,16 +6,14 @@ const UserProvider = props => {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
 
-  const getData = async () => {
-    await axios
-      .get("http://my-json-server.typicode.com/lecha91/fakeApi/users")
-      .then(res => {
-        setUsers(res.data);
-      });
-  };
-
   useEffect(() => {
-    getData();
+    fetch("http://my-json-server.typicode.com/lecha91/fakeApi/users")
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        setUsers(data);
+      });
   }, []);
 
   return (
