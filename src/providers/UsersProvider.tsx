@@ -12,9 +12,10 @@ interface IUser {
 interface IAuthContext {
   handleLogout(): void;
   modalState: string;
-  users: IUser | null;
+  users: IUser[] | null;
   currentUser: IUser | null;
-  handleLoginSubmit(email: string, password: string): void;
+  handleLoginSubmit(email: string, password: string): Promise<any>;
+  // handleLoginSubmit(email: string, password: string): void;
   handleRegSubmit(email: string, newUser: object): void;
 }
 
@@ -27,8 +28,8 @@ const AuthProvider = (props: any) => {
     error: "error",
     none: "none"
   };
-  const [users, setUsers] = useState();
-  const [currentUser, setCurrentUser] = useState();
+  const [users, setUsers] = useState<IUser[] | null>(null);
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const [modalState, setModalState] = useState(modalStates.none);
 
   useEffect(() => {
@@ -45,13 +46,36 @@ const AuthProvider = (props: any) => {
     setCurrentUser(null);
   };
 
-  const handleLoginSubmit = (email: string, password: string) => {
-    if (users) {
-      const user: IUser = users.find(
-        (u: IUser) => u.email === email && u.password === password
-      );
+  // const handleLoginSubmit = (email: string, password: string) => {
+  //   if (users) {
+  //     const user = users.find(
+  //       (u: IUser) => u.email === email && u.password === password
+  //     );
+  //     if (user) {
+  //       const currentUser: IUser = {
+  //         email: user.email,
+  //         password: user.password,
+  //         firstName: user.firstName,
+  //         lastName: user.lastName,
+  //         id: user.id
+  //       };
+  //       setCurrentUser(currentUser);
+  //       navigate("/user");
+  //     } else {
+  //       setModalState(modalStates.error);
+  //       setTimeout(() => setModalState(modalStates.none), 1500);
+  //     }
+  //   }
+  // };
+
+  const handleLoginSubmit = (email: string, password: string) =>
+    new Promise((resolve, reject) => {
+      const user =
+        users &&
+        users.find((u: IUser) => u.email === email && u.password === password);
       if (user) {
-        const currentUser: IUser = {
+        resolve({ email, password });
+        const currentUser = {
           email: user.email,
           password: user.password,
           firstName: user.firstName,
@@ -59,45 +83,26 @@ const AuthProvider = (props: any) => {
           id: user.id
         };
         setCurrentUser(currentUser);
+
         navigate("/user");
       } else {
+        reject(null);
         setModalState(modalStates.error);
         setTimeout(() => setModalState(modalStates.none), 1500);
       }
-    }
-  };
+    });
 
-  // const handleLoginSubmit = ({email, password}) =>
-  //   new Promise((resolve, reject) => {
-  //     const user = users.find(
-  //       (u:IUser) => u.email === email && u.password === password
-  //     );
-  //     if (user) {
-  //       resolve( {email, password} );
-  //       const currentUser = {
-  //         firstName: user.firstName,
-  //         lastName: user.lastName,
-  //         id: user.id
-  //       };
-  //       setCurrentUser(currentUser);
-
-  //       navigate("/user");
-  //     } else {
-  //       reject(null);
-  //       setModalState(modalStates.error);
-  //       setTimeout(() => setModalState(modalStates.none), 1500);
-  //     }
-  //   });
-
-  const handleRegSubmit = (email: string, newUser: object) => {
-    const user: IUser | null = users.find((u: IUser) => u.email === email);
-    if (user) {
-      setModalState(modalStates.warning);
-      setTimeout(() => setModalState(modalStates.none), 1500);
-    } else {
-      setUsers([...users, newUser]);
-      setModalState(modalStates.success);
-      setTimeout(() => navigate("/"), 1500);
+  const handleRegSubmit = (email: string, newUser: IUser) => {
+    if (users) {
+      const user = users.find((u: IUser) => u.email === email);
+      if (user) {
+        setModalState(modalStates.warning);
+        setTimeout(() => setModalState(modalStates.none), 1500);
+      } else {
+        setUsers([...users, newUser]);
+        setModalState(modalStates.success);
+        setTimeout(() => navigate("/"), 1500);
+      }
     }
   };
 

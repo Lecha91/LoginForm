@@ -65,7 +65,7 @@ const Register: React.FC = () => {
           className={styles.regInput}
           id="email"
           type="text"
-          autoComplete="userName"
+          autoComplete="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
         />

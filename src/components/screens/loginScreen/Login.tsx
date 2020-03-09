@@ -3,7 +3,6 @@ import styles from "./Login.module.css";
 import { useAuth } from "../../../providers/UsersProvider";
 import Modal from "../../modal/Modal";
 import warning from "../../../assets/warning.png";
-import { string } from "prop-types";
 
 // const login = ({ username, password }) => new Promise((resolve, reject) => {
 //   if (username === 'test' && password === 'test') {
@@ -52,7 +51,7 @@ const Login: React.FC<ILogin> = () => {
           id="email"
           type="email"
           value={email}
-          autoComplete="userName"
+          autoComplete="email"
           onChange={e => setEmail(e.target.value)}
         />
         <label className={styles.logLabel}>Password</label>
