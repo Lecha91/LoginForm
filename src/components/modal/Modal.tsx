@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./Modal.module.css";
 
-const Modal = ({ message, icon }) => {
+interface Props {
+  message: string;
+  icon: string;
+}
+const Modal: React.FC<Props> = ({ message, icon }) => {
   return (
     <div className={styles.modalContainer}>
       <div className={styles.filterLayer}></div>

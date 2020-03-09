@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "@reach/router";
 import styles from "./Navigation.module.css";
-import { useUser } from "../../providers/UsersProvider";
+import { useAuth } from "../../providers/UsersProvider";
 
-const Navigation = () => {
-  const { currentUser } = useUser();
+const Navigation: React.FC = () => {
+  const { currentUser } = useAuth();
 
   return (
     <div className={styles.navigation}>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styles from "./Login.module.css";
-import { useUser } from "../../../providers/UsersProvider";
+import { useAuth } from "../../../providers/UsersProvider";
 import Modal from "../../modal/Modal";
 import warning from "../../../assets/warning.png";
+import { string } from "prop-types";
 
 // const login = ({ username, password }) => new Promise((resolve, reject) => {
 //   if (username === 'test' && password === 'test') {
@@ -19,9 +20,13 @@ import warning from "../../../assets/warning.png";
 // })
 
 const emailPattern = /^\S+@\S+\.\S+$/;
+interface ILogin {
+  email: string;
+  password: string;
+}
 
-const Login = () => {
-  const { handleLoginSubmit, modalState } = useUser();
+const Login: React.FC<ILogin> = () => {
+  const { handleLoginSubmit, modalState } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -37,7 +42,7 @@ const Login = () => {
         className={styles.logForm}
         onSubmit={e => {
           e.preventDefault();
-          handleLoginSubmit({ email, password });
+          handleLoginSubmit(email, password);
         }}
       >
         <label className={styles.logLabel}>Email</label>

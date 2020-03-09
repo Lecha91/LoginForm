@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styles from "./Register.module.css";
 import Modal from "../../modal/Modal";
-import { useUser } from "../../../providers/UsersProvider";
+import { useAuth } from "../../../providers/UsersProvider";
 import success from "../../../assets/success.png";
 import warning from "../../../assets/warning.png";
 
 const emailPattern = /^\S+@\S+\.\S+$/;
 
-const Register = () => {
-  const { handleRegSubmit, modalState } = useUser();
+const Register: React.FC = () => {
+  const { handleRegSubmit, modalState } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");

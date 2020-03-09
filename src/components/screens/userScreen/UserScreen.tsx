@@ -1,18 +1,14 @@
 import React from "react";
 import styles from "./UserScreen.module.css";
 import { navigate } from "@reach/router";
-import { useUser } from "../../../providers/UsersProvider";
+import { useAuth } from "../../../providers/UsersProvider";
 
-const UserScreen = () => {
-  const { currentUser, setCurrentUser } = useUser();
+const UserScreen: React.FC = () => {
+  const { currentUser, handleLogout } = useAuth();
 
   if (!currentUser) {
     navigate("/");
   }
-
-  const handleLogout = () => {
-    setCurrentUser(null);
-  };
 
   return (
     currentUser && (
